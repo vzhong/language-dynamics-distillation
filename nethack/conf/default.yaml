@@ -1,0 +1,51 @@
+# see config options in https://github.com/vzhong/wrangl/wrangl/conf
+defaults:
+  - wrangl_rl_experiment
+  - _self_
+
+model: 'mymodel'
+project: 'wrangl-examples-nethack_rl'
+
+optim:
+  params:
+    lr: 0.0001
+    eps: 0.000001
+    weight_decay: 0
+
+localdir: "${dsave}/peers/${peer}"
+local_name: "${name}-${peer}"
+peer: 0
+max_steps: 1_000_000_000
+autoresume: false
+
+actor_batch_size: 256
+baseline_cost: 0.25
+batch_size: 128
+connect: 127.0.0.1:4431
+discounting: 0.999
+entropy_cost: 0.001
+env:
+  name: "NetHackChallenge-v0"  # See https://brosa.ca/blog/ale-release-v0.7
+  character: 'mon-hum-neu-mal'
+  fn_penalty_step: constant
+  penalty_step: -0.001
+  penalty_time: 0.0
+  max_episode_steps: 100000
+
+fixup_init: true
+grad_clip_norm: 4
+log_every_n_steps: 100
+val_check_interval: 100  # how often to evaluate in seconds
+num_actor_batches: 2
+num_actor_cpus: 10
+unroll_length: 32
+stateful: true
+virtual_batch_size: 128
+reward_clip: 10
+reward_scale: 0.1
+eval_steps: 10000  # how many steps to evaluate for
+normalize_advantages: true
+appo_clip_policy: 0.1
+appo_clip_baseline: 1.0
+
+dstate: 512

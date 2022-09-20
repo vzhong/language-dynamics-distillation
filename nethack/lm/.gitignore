@@ -1,0 +1,8 @@
+*.py[cod]
+*.txt
+*.db
+*.ckpt
+wandb/
+slurm/
+lightning_logs/
+checkpoints/

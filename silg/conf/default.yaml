@@ -1,0 +1,63 @@
+defaults:
+  - override hydra/launcher: local.yaml
+
+##########
+# launcher
+##########
+hydra:
+  job:
+    name: '${name}'
+    env_set:
+      OMP_NUM_THREADS: '1'
+      RAY_OBJECT_STORE_ALLOW_SLOW_STORAGE: '1'
+      PYTHONPATH: '${oc.env:PWD}'
+  run:
+    dir: '${dproject}/${name}'
+  sweep:
+    dir: '${dproject}/sweep'
+
+##########
+# wandb
+##########
+wandb:  # wandb settings
+  enable: false
+  project: '${project}'
+  name: '${name}'
+  entity: '${oc.env:USER}'
+  dir: '${dproject}'
+
+##########
+# training
+##########
+dproject: '${oc.env:PWD}/saves/${project}'
+early_stopping:
+    monitor: 'val_acc'
+    mode: 'max'
+debug: false
+seed: 0
+precision: 16
+strategy: null
+limit_val_batches: 1.0
+batch_size: 100
+grad_clip_norm: 10
+collate_fn: 'auto'  # use 'ignore' to pass an identity collate and define featurize instead
+max_steps: 1_000_000
+log_every_n_steps: 50
+flush_logs_every_n_steps: 50
+val_check_interval: 1000
+gpus: 1
+test_only: false
+autoresume: true
+savedir: '${dproject}/${name}'
+ckpt_path: '${savedir}/latest.ckpt'
+learning_rate: 0.0001
+val_sample_size: 100
+
+
+##########
+# naming
+##########
+name: 'human6-${pretrain}'
+project: 'silg-dynamics'
+pretrain: null
+drollout: null

@@ -1,0 +1,6 @@
+saves/
+*.zip
+.hydra/
+.ipynb_checkpoints/
+*.pth
+*.egg-info/

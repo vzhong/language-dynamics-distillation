@@ -1,0 +1,112 @@
+defaults:
+  - override hydra/launcher: local
+
+hydra:
+  run:
+    dir: '${savedir}'
+  sweep:
+    dir: '${savedir}/sweep'
+wandb:
+  enable: false
+  project: 'lm'
+  name: '${lm.name}'
+  entity: 'nethack'
+
+activation_function: relu
+actor_batch_size: 256
+add_image_observation: True
+adam_beta1: 0.9
+adam_beta2: 0.999
+adam_eps: 0.000001
+adam_learning_rate: 0.0001
+appo_clip_policy: 0.1  # 'null' to disable clipping
+appo_clip_baseline: 1.0  # 'null' to disable clipping
+baseline_cost: 0.25
+batch_size: 128
+character: 'mon-hum-neu-mal'
+checkpoint_interval: 600
+checkpoint_history_interval: 3600
+connect: 127.0.0.1:4431
+crop_dim: 9
+device: "cuda:0"
+discounting: 0.999
+entity: null
+entropy_cost: 0.001
+env:
+  name: challenge  # One of challenge, staircase, pet, eat, gold, score, scout, oracle.
+  max_episode_steps: 100001
+exp_point: point-A       # spare parameter, useful for wandb grouping
+exp_set: experiment-set  # spare parameter, useful for wandb grouping
+fixup_init: true
+fn_penalty_step: constant
+grad_norm_clipping: 4
+group: group2 
+learning_rate: 0.0002
+# Savedir is used for storing the checkpoint(s),
+# including flags and any global settings/stats for the training
+# localdir (which is a subdirectory of savedir) should be used
+# for storing logs and anything local to each instance
+localdir: "${savedir}/peers/${local_name}"
+local_name: "${group}"
+log_fmt: "[%(levelname)s:${local_name} %(process)d %(module)s:%(lineno)d %(asctime)s] %(message)s"
+log_interval: 20
+model: ChaoticDwarvenGPT5
+normalize_advantages: True
+normalize_reward: False
+num_actor_batches: 2
+num_actor_cpus: 10
+penalty_step: -0.001
+penalty_time: 0.0
+project: 'lm'
+rms_alpha: 0.99
+rms_epsilon: 0.000001
+rms_momentum: 0
+reward_clip: 10
+reward_scale: 0.1
+savedir: "/checkpoint/${oc.env:USER}/hackrl/${project}/${lm.name}"
+state_counter: none
+total_steps: 1_000_000_000
+unroll_length: 32
+use_bn: false
+use_lstm: true
+virtual_batch_size: 128
+
+baseline:
+  # Parameters for models/baseline.py
+  embedding_dim: 64
+  hidden_dim: 512
+  layers: 5
+  msg:
+    embedding_dim: 32
+    hidden_dim: 64
+  restrict_action_space: True  # Use a restricted ACTION SPACE (only nethack.USEFUL_ACTIONS)
+  use_index_select: False
+
+use_tty_only: true  # Use only tty observations. 'False' ~ 10% faster & higher score
+use_inverse_model: false
+inverse_loss: 0
+
+teacher: false
+
+lm:
+  learning_rate: 0.0001
+  batch_size: 12
+  dbfilename: 'lm/ttyrecs.db'
+  max_message_len: 30
+  num_train_steps: 10000000
+  eval_period: 8000
+  num_val_steps: 200
+  log_period: 1000
+  gpus: 1
+  autoresume: true
+  fresume: null
+  test_only: false
+  debug: false
+  num_actors: 20
+  num_beams: 4
+  ignore_empty_context: false
+  ignore_empty_target: false
+  model: 'char_dm'
+  process_image: false
+  db_workers: 10
+  name: '${lm.model}'
