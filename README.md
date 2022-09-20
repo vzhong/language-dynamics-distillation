@@ -4,7 +4,7 @@ This repository contains the source code for the paper [Improving Policy Learnin
 ## Citation
 
 ```
-@inproceedings{ zhong2022improving,
+@inproceedings{ zhong2022ldd,
   title={ Improving Policy Learning via Language Dynamics Distillation },
   author={ Victor Zhong and Jesse Mu and Luke Zettlemoyer and Edward Grefenstette and Tim Rocktäschel },
   booktitle={ NeurIPS },
