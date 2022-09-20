@@ -16,7 +16,7 @@ This repository contains the source code for the paper [Improving Policy Learnin
 This code base consists of 3 modified original code bases to add LDD (e.g. obtaining demonstrations, dynamics modeling, distillation+initialization).
 - `silg` is a modification of [silg](https://github.com/vzhong/silg) to incorporate language descriptions into Touchdown, and also add LDD.
 - `messenger` is a modification of [messenger-emma](https://github.com/ahjwang/messenger-emma)
-- `nethack` is a modifiction of [nle-sample-factory-baseline](https://github.com/Miffyli/nle-sample-factory-baseline).
+- `nethack` is a modification of [nle-sample-factory-baseline](https://github.com/Miffyli/nle-sample-factory-baseline).
 
 ## License
 
